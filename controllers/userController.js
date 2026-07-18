@@ -4,12 +4,16 @@ const generateToken = require("../utils/generateToken")
 
 const signupUser = async (req, res) => {
   try {
+    
     const { fullName, email, phoneNumber, password } = req.body;
 
+    console.log("Request body:", req.body);
+console.log("MONGO_URI exists:", !!process.env.MONGO_URI);
     
 
-    if (fullName !== "" && email !== "" && phoneNumber !== "" && password !== "" ) {
+    if (!fullName == "" &&! email == "" && !phoneNumber == "" &&! password == "" ) {
       const exist = await User.findOne({ email });
+      console.log("Existing user:", exist);
       if (exist) {
         return res.status(400).json({ message: "user already exist" });
       }
@@ -22,6 +26,7 @@ const signupUser = async (req, res) => {
         password,
     
       });
+      console.log("Created user:", user);
       res.status(201).json({
         message: "user with profile created successfully",
         user: {
@@ -32,18 +37,22 @@ const signupUser = async (req, res) => {
           password: user.password,
         
         },
+        
+
         token: generateToken(user._id),
+        
+        
       });
     } else {
       return res.status(400).json({ message: "All fields are required" });
     }
   } catch (err) {
-    // console.error(`An error occured: ${err.message}`);
-    // res.status(500).json({ message: "Internal server error" });
-    console.error("signup/Login Error", error.message);
-    return res.status(500).json({message: error.message })
+    console.error("signup/Login Error:", err);
+    res.status(500).json({ message: err.message });
   }
 };
+
+
 
 
 
