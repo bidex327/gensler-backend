@@ -38,8 +38,10 @@ const signupUser = async (req, res) => {
       return res.status(400).json({ message: "All fields are required" });
     }
   } catch (err) {
-    console.error(`An error occured: ${err.message}`);
-    res.status(500).json({ message: "Internal server error" });
+    // console.error(`An error occured: ${err.message}`);
+    // res.status(500).json({ message: "Internal server error" });
+    console.error("signup/Login Error", error.message);
+    return res.status(500).json({message: error.message })
   }
 };
 
