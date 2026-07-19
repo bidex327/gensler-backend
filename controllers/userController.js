@@ -11,7 +11,12 @@ const signupUser = async (req, res) => {
 console.log("MONGO_URI exists:", !!process.env.MONGO_URI);
     
 
-    if (!fullName == "" &&! email == "" && !phoneNumber == "" &&! password == "" ) {
+    if (
+  fullName !== "" &&
+  email !== "" &&
+  phoneNumber !== "" &&
+  password !== ""
+) {
       const exist = await User.findOne({ email });
       console.log("Existing user:", exist);
       if (exist) {

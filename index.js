@@ -87,19 +87,6 @@ const { dbConnect } = require("./lib/dbConnect");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(
-  cors({
-    origin: [
-      "http://localhost:5174",
-       "https://gensler-aamb.vercel.app",
-       "https://gensler-m53g.vercel.app",
-       "https://gensler-dpx7.vercel.app/",
-    ],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true
-  })
-);
-
 // Connect once at startup
 (async () => {
   try {
@@ -109,6 +96,19 @@ app.use(
     console.error("DB connection failed:", err);
   }
 })();
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5174",
+       "https://gensler-aamb.vercel.app",
+       "https://gensler-m53g.vercel.app",
+       "https://gensler-dpx7.vercel.app",
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true
+  })
+);
+
 
 app.use("/api", userRoutes);
 app.use("/api", cardsRoutes);
