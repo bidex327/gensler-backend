@@ -39,7 +39,7 @@ app.get("/", (req, res) => res.send("Welcome to my API"));
 
 if (process.env.NODE_ENV !== "production") {
   const PORT = 5000;
-  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+  app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
 }
 
 module.exports = app;
